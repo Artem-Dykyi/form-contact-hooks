@@ -1,11 +1,12 @@
 // App.jsx
 import styled from "styled-components"
-import { Component } from "react";
+// import { Component, useState } from "react";
 import { nanoid } from "nanoid";
 import Filter from "./Filter";
 import ContactList from "./ContactList";
 import ContactForm from "./ContactForm";
 import contact from "./contacts.json";
+import { useState, useEffect } from "react";
 
 const Title = styled.h2`
     color: rgb(201, 103, 214);
@@ -27,37 +28,52 @@ const Box = styled.div`
 
 `
 
-export class App extends Component {
-  state = {
-    contacts: contact,
-    filter: "",
-    name: "",
-    number: "",
-  };
+export function App(){
+  const [contacts, setContacts] = useState(contact)
+  const [filter, setFilter] = useState("")
+  const [name, setName] = useState("")
+  const [number, setNumber] = useState("")
+  // state = {
+  //   contacts: contact,
+  //   filter: "",
+  //   name: "",
+  //   number: "",
+  // };
 
-  componentDidMount(){
+  useEffect(() => {
     const saveContacts = localStorage.getItem("contacts");
     if(saveContacts){
-      this.setState({contacts: JSON.parse(saveContacts)})
-    } else {
-    localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
-  }
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.contacts !== this.state.contacts){
-      localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+      setContacts(JSON.parse(saveContacts))
     }
-  }
+ }, []);
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
+ useEffect(()=>{
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+ }, [contacts])
+  // componentDidMount(){
+  //   const saveContacts = localStorage.getItem("contacts");
+  //   if(saveContacts){
+  //     this.setState({contacts: JSON.parse(saveContacts)})
+  //   } else {
+  //   localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+  // }
+  // }
 
-  handleSubmit = (e) => {
+  // componentDidUpdate(prevProps, prevState){
+  //   if(prevState.contacts !== this.state.contacts){
+  //     localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+  //   }
+  // }
+
+  function handleChange(e) {
+  const { name, value } = e.target;
+  if (name === "name") setName(value);
+  if (name === "number") setNumber(value);
+}
+
+  function handleSubmit(e){
     e.preventDefault();
-    const { contacts, name, number } = this.state;
+    // const { contacts, name, number } = this.state;
 
     const newContact = {
       id: nanoid(),
@@ -65,49 +81,51 @@ export class App extends Component {
       number,
     };
 
-    this.setState({
-      contacts: [...contacts, newContact],
-      name: "",
-      number: "",
-    });
+    // this.setState({
+    //   contacts: [...contacts, newContact],
+    //   name: "",
+    //   number: "",
+    // });
+
+    setContacts([...contacts, newContact])
+    setName("")
+    setNumber("")
   };
 
-  handleFilterChange = (value) => {
-    this.setState({ filter: value });
+  function handleFilterChange(value) {
+    setFilter(value);
   };
 
-  deleteId = (id) => {
-  this.setState((prevState) => ({
-    contacts: prevState.contacts.filter((c) => c.id !== id),
-  }));
+  function deleteId (id) {
+  setContacts((prevCont) => prevCont.filter((c) => c.id !== id));
 };
 
-  render() {
+
     return (
       <Box className="App">
         <Title>Phonebook</Title>
 
         <ContactForm
-          onSubmit={this.handleSubmit}
-          onChange={this.handleChange}
-          name={this.state.name}
-          number={this.state.number}
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+          name={name}
+          number={number}
         />
 
         <Filter 
-          value={this.state.filter} 
-          onFilter={this.handleFilterChange} 
+          value={filter} 
+          onFilter={handleFilterChange} 
         />
 
         <Title>Contacts</Title>
         <ContactList
-          contacts={this.state.contacts}
-          deleteId={this.deleteId}
-          filter={this.state.filter}
+          contacts={contacts}
+          deleteId={deleteId}
+          filter={filter}
         />
         
       </Box>
     );
   }
-}
+
 export default App;

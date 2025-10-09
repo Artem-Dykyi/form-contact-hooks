@@ -35,7 +35,7 @@ const Btn = styled.button`
 
 `
 
-export const ContactList = ({ contacts, deleteId, filter }) => {
+export function ContactList({ contacts, deleteId, filter }){
   const filterContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );

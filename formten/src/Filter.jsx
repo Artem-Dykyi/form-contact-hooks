@@ -1,4 +1,3 @@
-import { Component } from "react";
 import styled from "styled-components"
 
 const InputSe = styled.input`
@@ -26,25 +25,23 @@ const Text = styled.p`
     padding-left: 40px;
 
 `
-export class Filter extends Component{
+export function Filter({ value, onFilter }){
 
     
-handleChangeSearch = (e) => {
-  this.props.onFilter(e.target.value); 
+function handleChangeSearch(e){
+  onFilter(e.target.value); 
 };
 
-    render(){
         return(
             <Box>
                 <Text>Фільтр контакту</Text>
                 <InputSe
                     type="text"
-                    value={this.props.value}
-                    onChange={this.handleChangeSearch}
+                    value={value}
+                    onChange={handleChangeSearch}
                     />
             </Box>
         )
     }
-}
 
 export default Filter;

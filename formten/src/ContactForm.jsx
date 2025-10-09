@@ -45,7 +45,7 @@ const Btn = styled.button`
 
 `
 
-export const ContactForm = ({ onSubmit, onChange, name, number })=>{
+export function ContactForm ({ onSubmit, onChange, name, number }){
     return(
 
     
