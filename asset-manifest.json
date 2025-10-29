@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/form-contact-hooks/static/css/main.38f2b15b.css",
-    "main.js": "/form-contact-hooks/static/js/main.848f587b.js",
+    "main.js": "/form-contact-hooks/static/js/main.9bfe9057.js",
     "index.html": "/form-contact-hooks/index.html",
     "main.38f2b15b.css.map": "/form-contact-hooks/static/css/main.38f2b15b.css.map",
-    "main.848f587b.js.map": "/form-contact-hooks/static/js/main.848f587b.js.map"
+    "main.9bfe9057.js.map": "/form-contact-hooks/static/js/main.9bfe9057.js.map"
   },
   "entrypoints": [
     "static/css/main.38f2b15b.css",
-    "static/js/main.848f587b.js"
+    "static/js/main.9bfe9057.js"
   ]
 }
