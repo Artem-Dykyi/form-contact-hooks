@@ -6,7 +6,9 @@ import Filter from "./Filter";
 import ContactList from "./ContactList";
 import ContactForm from "./ContactForm";
 import contact from "./contacts.json";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "./ThemeContext";
+
 
 const Title = styled.h2`
     color: rgb(201, 103, 214);
@@ -33,6 +35,8 @@ export function App(){
   const [filter, setFilter] = useState("")
   const [name, setName] = useState("")
   const [number, setNumber] = useState("")
+
+  const {theme, toggleTheme} = useContext(ThemeContext)
   // state = {
   //   contacts: contact,
   //   filter: "",
@@ -102,7 +106,9 @@ export function App(){
 
 
     return (
-      <Box className="App">
+      <Box className="App" style={{backgroundColor: theme === "light" ? "rgb(250, 246, 187)" : "rgb(200, 80, 60)"}}>
+        <button onClick={toggleTheme}>toggleTheme</button>
+        <p>{theme}</p>
         <Title>Phonebook</Title>
 
         <ContactForm

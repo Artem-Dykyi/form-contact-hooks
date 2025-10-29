@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
+import { ThemeProvider } from './ThemeContext';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <ThemeProvider>
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ThemeProvider>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function
