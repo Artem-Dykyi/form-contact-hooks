@@ -5,9 +5,12 @@ import { nanoid } from "nanoid";
 import Filter from "./Filter";
 import ContactList from "./ContactList";
 import ContactForm from "./ContactForm";
-import contact from "./contacts.json";
+//import contact from "./contacts.json";
 import { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
+
+import {useDispatch, useSelector} from "react-redux";
+import { addContact, deleteContact, setFilter } from "./redux/action";
 
 
 const Title = styled.h2`
@@ -31,8 +34,15 @@ const Box = styled.div`
 `
 
 export function App(){
-  const [contacts, setContacts] = useState(contact)
-  const [filter, setFilter] = useState("")
+
+const dispatch = useDispatch();
+
+const contacts = useSelector(state => state.contact.contacts);
+const filter = useSelector(state => state.contact.filter);
+
+  
+  //const [contacts, setContacts] = useState(contact)
+  //const [filter, setFilter] = useState("")
   const [name, setName] = useState("")
   const [number, setNumber] = useState("")
 
@@ -44,12 +54,12 @@ export function App(){
   //   number: "",
   // };
 
-  useEffect(() => {
-    const saveContacts = localStorage.getItem("contacts");
-    if(saveContacts){
-      setContacts(JSON.parse(saveContacts))
-    }
- }, []);
+//   useEffect(() => {
+//     const saveContacts = localStorage.getItem("contacts");
+//     if(saveContacts){
+//       setContacts(JSON.parse(saveContacts))
+//     }
+//  }, []);
 
  useEffect(()=>{
     localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -89,19 +99,22 @@ export function App(){
     //   contacts: [...contacts, newContact],
     //   name: "",
     //   number: "",
-    // });
+    // }); -- клас
 
-    setContacts([...contacts, newContact])
+    //setContacts([...contacts, newContact]) - хук
+    
+    dispatch(addContact(newContact))
     setName("")
     setNumber("")
   };
 
   function handleFilterChange(value) {
-    setFilter(value);
+    dispatch(setFilter(value));
   };
 
   function deleteId (id) {
-  setContacts((prevCont) => prevCont.filter((c) => c.id !== id));
+  //setContacts((prevCont) => prevCont.filter((c) => c.id !== id)); -- хук
+  dispatch(deleteContact(id));
 };
 
 
