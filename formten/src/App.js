@@ -37,8 +37,12 @@ export function App(){
 
 const dispatch = useDispatch();
 
-const contacts = useSelector(state => state.contact.contacts);
-const filter = useSelector(state => state.contact.filter);
+/*const contacts = useSelector(state => state.contact.contacts);
+const filter = useSelector(state => state.contact.filter);*/ //--- класичний
+
+
+const contacts = useSelector(state => state.contacts);
+const filter = useSelector(state => state.filters);
 
   
   //const [contacts, setContacts] = useState(contact)

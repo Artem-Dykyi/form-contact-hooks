@@ -36,6 +36,7 @@ const Btn = styled.button`
 `
 
 export function ContactList({ contacts, deleteId, filter }){
+ 
   const filterContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
@@ -51,5 +52,6 @@ export function ContactList({ contacts, deleteId, filter }){
     </Box>
   );
 };
+
 
 export default ContactList;
